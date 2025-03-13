@@ -1,16 +1,32 @@
 {
-  "name": "game-template",
-  "version": "1.0.50",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
-  },
-  "dependencies": {
-    "elysia": "latest"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "bun-types": "latest"
-  },
-  "module": "src/index.js"
+	"name": "game-template",
+	"version": "1.0.50",
+	"type": "module",
+	"scripts": {
+		"lint": "biome lint .",
+		"format": "biome format . --write",
+		"check": "biome check --apply .",
+		"dev:server": "bun run --watch src/index.ts",
+		"dev:client": "vite",
+		"dev:all": "concurrently \"bun run dev:server\" \"bun run dev:client\""
+	},
+	"dependencies": {
+		"@elysiajs/eden": "^1.2.0",
+		"@playt/client": "^11.3.0",
+		"@tailwindcss/vite": "^4.0.13",
+		"elysia": "latest",
+		"phaser": "^3.88.2",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"tailwindcss": "^4.0.13",
+		"vite": "^6.2.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@types/react": "^19.0.10",
+		"@types/react-dom": "^19.0.4",
+		"bun-types": "latest",
+		"concurrently": "^9.1.2",
+		"vite-tsconfig-paths": "^5.1.4"
+	}
 }
