@@ -6,7 +6,7 @@ import { createGame } from "@game/Game";
 function App() {
 	const gameContainerRef = useRef<HTMLDivElement>(null);
 	const gameInstanceRef = useRef<PhaserGame | null>(null);
-	const [containerWidth, setContainerWidth] = useState<number>(0);
+	const [_containerWidth, setContainerWidth] = useState<number>(0);
 
 	const { currentActiveScene } = useGameEvents();
 
@@ -40,19 +40,12 @@ function App() {
 
 	return (
 		<div className="grid grid-rows-[100px_auto] grid-flow-row justify-items-center content-start pb-2">
+			Scene:{currentActiveScene}
 			<div
 				id="game-container"
 				ref={gameContainerRef}
 				className="col-start-1 row-start-2 max-w-full"
 			/>
-			<div
-				className="col-start-1 row-start-2 grid grid-rows-[auto_auto_1fr] p-4 justify-items-center gap-4 lg:gap-8"
-				style={{ width: containerWidth || "100%" }}
-			>
-				<div className="grid place-items-center gap-4">
-					{currentActiveScene}
-				</div>
-			</div>
 		</div>
 	);
 }
