@@ -19,6 +19,7 @@
 		"@elysiajs/static": "^1.2.0",
 		"@playt/client": "^11.3.0",
 		"@tailwindcss/vite": "^4.0.13",
+		"@vitejs/plugin-react": "^5.0.1",
 		"elysia": "latest",
 		"phaser": "^3.88.2",
 		"react": "^19.0.0",
