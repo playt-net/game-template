@@ -13,6 +13,20 @@
 bun i
 ```
 
+## Environment Variables
+
+Before starting the development server, you need to set up the following environment variables:
+
+### API_KEY
+This is a ClashParadise API key. You can:
+- Use an existing key from `.env.games`
+- Create a new game in the dev console to generate a new API key
+
+### AXIOM_TOKEN
+This token needs to be retrieved from Axiom for logging and analytics.
+
+Make sure to create a `.env` or `.env.local` file in the root directory with these variables before running the application.
+
 To start the development server run:
 ```bash
 bun run dev:all
