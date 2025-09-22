@@ -23,6 +23,13 @@ This template provides a full-stack game development architecture with clear sep
 - **Code Quality**: Biome (linting & formatting)
 - **Platform Integration**: @playt/client
 
+### CORS Configuration
+
+The template includes automatic CORS handling for development (don't commit this code within the server.ts):
+
+- **Development**: Allows connections from `localhost:8000` and `127.0.0.1:8000` (Vite dev server)
+- **Methods**: Enables GET, POST, PUT, DELETE, and OPTIONS requests
+
 ## 🚀 Quick Start
 
 ### Prerequisites

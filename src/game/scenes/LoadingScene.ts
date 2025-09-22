@@ -1,32 +1,32 @@
-import { Scene } from "phaser";
-import api from "../../client/client";
-import { EventBus } from "@game/EventBus";
+import { Scene } from 'phaser';
+import api from '../../client/client';
+import { EventBus } from '@game/EventBus';
 
 export class LoadingScene extends Scene {
 	private loadingText!: Phaser.GameObjects.Text;
-	private playerToken = "";
+	private playerToken = '';
 	private progressBar!: Phaser.GameObjects.Graphics;
 	private progressBox!: Phaser.GameObjects.Graphics;
 	private error = false;
 	private loadingErrorCounter = 0;
 
 	constructor() {
-		super({ key: "LoadingScene" });
+		super({ key: 'LoadingScene' });
 	}
 
 	init() {
-		console.log("started");
+		console.log('started');
 		// Get token from URL parameters
 		const params = new URLSearchParams(window.location.search);
-		const playerToken = params.get("playerToken");
+		const playerToken = params.get('playerToken');
 
 		if (!playerToken) {
-			console.error("No player token found, showing error");
-			this.showError("No player token provided in URL");
+			console.error('No player token found, showing error');
+			this.showError('No player token provided in URL');
 			return;
 		}
 		this.playerToken = playerToken;
-		EventBus.emit("current-scene-ready", "LoadingScene");
+		EventBus.emit('current-scene-ready', 'LoadingScene');
 	}
 
 	preload() {
@@ -48,13 +48,13 @@ export class LoadingScene extends Scene {
 		);
 
 		this.loadingText = this.add
-			.text(width / 2, height / 2 - 50, "Loading...", {
-				fontSize: "32px",
-				color: "#000",
+			.text(width / 2, height / 2 - 50, 'Loading...', {
+				fontSize: '32px',
+				color: '#000',
 			})
 			.setOrigin(0.5);
 
-		this.load.on("progress", (value: number) => {
+		this.load.on('progress', (value: number) => {
 			this.progressBar.clear();
 			this.progressBar.fillStyle(0xf86a52);
 
@@ -67,9 +67,9 @@ export class LoadingScene extends Scene {
 			);
 		});
 
-		this.load.on("loaderror", () => {
+		this.load.on('loaderror', () => {
 			if (this.loadingErrorCounter > 3) {
-				this.showError("Error loading emojis!");
+				this.showError('Error loading emojis!');
 				return;
 			}
 			this.loadingErrorCounter++;
@@ -81,32 +81,32 @@ export class LoadingScene extends Scene {
 
 	async create() {
 		if (!this.playerToken) {
-			console.error("No player token found");
-			this.showError("No player token found");
+			console.error('No player token found');
+			this.showError('No player token found');
 			return;
 		}
 
 		const response = await api.getMatch();
 
 		if (!response) {
-			this.showError("No response received from server");
+			this.showError('No response received from server');
 			return;
 		}
 
 		const matchId = response.id;
 		if (!matchId) {
-			this.showError("No match ID received from server");
+			this.showError('No match ID received from server');
 			return;
 		}
 
 		const userId = response.player?.userId;
 		if (!userId) {
-			this.showError("No user ID received from server");
+			this.showError('No user ID received from server');
 			return;
 		}
 
-		if (response.status !== "running") {
-			this.showError("Match is not running");
+		if (response.status !== 'running') {
+			this.showError('Match is not running');
 			return;
 		}
 
@@ -140,31 +140,31 @@ export class LoadingScene extends Scene {
 		const { width, height } = this.cameras.main;
 
 		this.add
-			.text(width / 2, height / 2 - 50, "Error", {
-				fontSize: "32px",
-				color: "#ff0000",
+			.text(width / 2, height / 2 - 50, 'Error', {
+				fontSize: '32px',
+				color: '#ff0000',
 			})
 			.setOrigin(0.5);
 
 		this.add
 			.text(width / 2, height / 2 + 10, message, {
-				fontSize: "24px",
-				color: "#000000",
-				align: "center",
+				fontSize: '24px',
+				color: '#000000',
+				align: 'center',
 				wordWrap: { width: width * 0.8 },
 			})
 			.setOrigin(0.5);
 
 		this.add
-			.text(width / 2, height / 2 + 80, "Retry", {
-				fontSize: "24px",
-				color: "#ffffff",
-				backgroundColor: "#444444",
+			.text(width / 2, height / 2 + 80, 'Retry', {
+				fontSize: '24px',
+				color: '#ffffff',
+				backgroundColor: '#444444',
 				padding: { x: 20, y: 10 },
 			})
 			.setOrigin(0.5)
 			.setInteractive({ useHandCursor: true })
-			.on("pointerdown", () => {
+			.on('pointerdown', () => {
 				this.error = false;
 				this.scene.restart();
 			});

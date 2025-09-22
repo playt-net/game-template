@@ -1,7 +1,7 @@
-import type { Game as PhaserGame } from "phaser";
-import { useEffect, useRef, useState } from "react";
-import useGameEvents from "./hooks/useGameEvents";
-import { createGame } from "@game/Game";
+import type { Game as PhaserGame } from 'phaser';
+import { useEffect, useRef, useState } from 'react';
+import useGameEvents from './hooks/useGameEvents';
+import { createGame } from '@game/Game';
 
 function App() {
 	const gameContainerRef = useRef<HTMLDivElement>(null);

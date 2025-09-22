@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { EventBus } from "@game/EventBus";
+import { useEffect, useState } from 'react';
+import { EventBus } from '@game/EventBus';
 
 const useGameEvents = () => {
-	const [currentActiveScene, setCurrentActiveScene] = useState("");
+	const [currentActiveScene, setCurrentActiveScene] = useState('');
 
 	useEffect(() => {
-		EventBus.on("current-scene-ready", setCurrentActiveScene);
+		EventBus.on('current-scene-ready', setCurrentActiveScene);
 		return () => {
-			EventBus.off("current-scene-ready", setCurrentActiveScene);
+			EventBus.off('current-scene-ready', setCurrentActiveScene);
 		};
 	}, []);
 

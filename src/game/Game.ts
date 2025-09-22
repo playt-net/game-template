@@ -1,5 +1,5 @@
-import { Game as PhaserGame } from "phaser";
-import { LoadingScene } from "./scenes/LoadingScene";
+import { Game as PhaserGame } from 'phaser';
+import { LoadingScene } from './scenes/LoadingScene';
 
 export const createGame = (containerId: string) => {
 	return new PhaserGame({
@@ -23,10 +23,10 @@ export const createGame = (containerId: string) => {
 				height: 510 * window.devicePixelRatio * 1.6,
 			},
 		},
-		powerPreference: "high-performance",
+		powerPreference: 'high-performance',
 		autoFocus: true,
 		physics: {
-			default: "arcade",
+			default: 'arcade',
 			arcade: {
 				gravity: { x: 0, y: 0 },
 			},
