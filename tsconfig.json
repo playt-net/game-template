@@ -18,8 +18,11 @@
 		"noFallthroughCasesInSwitch": true,
 		"baseUrl": ".",
 		"paths": {
-			"@game/*": ["src/game/*"]
+			"@game/*": ["src/game/*"],
+			"@server/*": ["src/server/*"],
+			"@client/*": ["src/client/*"],
+			"src/*": ["src/*"]
 		}
 	},
-	"include": ["src"]
+	"include": ["src", "test"]
 }
