@@ -1,12 +1,12 @@
 import PlaytClient from '@playt/client';
 
-const apiUrl = import.meta.env.VITE_API_HOST;
+const apiUrl = import.meta.env.VITE_CLASH_PARADISE_API_HOST_URL;
 const apiKey = import.meta.env.API_KEY;
 
 if (!apiUrl || !apiKey) {
 	console.error('Missing environment variables:', { apiUrl, apiKey });
 	throw new Error(
-		'Missing environment variables: VITE_API_HOST and/or API_KEY not found',
+		'Missing environment variables: VITE_CLASH_PARADISE_API_HOST_URL and/or API_KEY not found',
 	);
 }
 

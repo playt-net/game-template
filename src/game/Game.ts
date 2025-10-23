@@ -1,5 +1,6 @@
 import { Game as PhaserGame } from 'phaser';
 import { LoadingScene } from './scenes/LoadingScene';
+import { SimpleGameScene } from './scenes/SimpleGameScene';
 
 export const createGame = (containerId: string) => {
 	return new PhaserGame({
@@ -14,14 +15,6 @@ export const createGame = (containerId: string) => {
 			height: 510 * window.devicePixelRatio,
 			zoom: 1 / window.devicePixelRatio,
 			autoRound: true,
-			min: {
-				width: 375 * window.devicePixelRatio,
-				height: 510 * window.devicePixelRatio,
-			},
-			max: {
-				width: 375 * window.devicePixelRatio * 1.6,
-				height: 510 * window.devicePixelRatio * 1.6,
-			},
 		},
 		powerPreference: 'high-performance',
 		autoFocus: true,
@@ -31,6 +24,6 @@ export const createGame = (containerId: string) => {
 				gravity: { x: 0, y: 0 },
 			},
 		},
-		scene: [LoadingScene],
+		scene: [LoadingScene, SimpleGameScene],
 	});
 };

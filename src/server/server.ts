@@ -6,16 +6,20 @@ import { logger } from '@bogeychan/elysia-logger';
 import cors from '@elysiajs/cors';
 
 const isDev = process.env.NODE_ENV === 'development';
+const enableCors = process.env.ENABLE_CORS === 'true';
 
-const app = new Elysia()
-	//Only for dev
-	.use(
+const app = new Elysia();
+
+if (enableCors) {
+	app.use(
 		cors({
 			origin: isDev ? ['http://localhost:8000', 'http://127.0.0.1:8000'] : true,
 			credentials: true,
 			methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 		}),
-	)
+	);
+}
+app
 	.use(
 		logger({
 			transport: process.env.AXIOM_TOKEN

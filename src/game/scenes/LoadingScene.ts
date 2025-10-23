@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import api from '../../client/client';
+import api from '../../client/clientConfig';
 import { EventBus } from '@game/EventBus';
 
 export class LoadingScene extends Scene {
@@ -69,14 +69,16 @@ export class LoadingScene extends Scene {
 
 		this.load.on('loaderror', () => {
 			if (this.loadingErrorCounter > 3) {
-				this.showError('Error loading emojis!');
+				this.showError('Error loading assets!');
 				return;
 			}
 			this.loadingErrorCounter++;
 			this.scene.restart();
 		});
 
-		// Load everything here
+		// Load sounds
+		this.load.audio('music', 'music.ogg');
+		this.load.audio('gameover', 'gameover.ogg');
 	}
 
 	async create() {
@@ -122,7 +124,8 @@ export class LoadingScene extends Scene {
 			return;
 		}
 
-		// start game scene
+		// Start the simple game scene
+		this.scene.start('SimpleGameScene');
 	}
 
 	private showError(message: string) {

@@ -72,6 +72,10 @@ bun run start
 VITE_CLASH_PARADISE_API_HOST_URL=http://localhost:4000  # Playt API endpoint
 API_KEY=your_api_key_here           # Get from .env.games file in code Dashboard
 
+# Development Tools
+ENABLE_CORS=true                    # Enable CORS for local development
+VITE_USE_MOCK_CLIENT=true           # Use mock client instead of Playt (for standalone testing)
+
 # Optional: Logging (Production)
 AXIOM_TOKEN=your_axiom_token        # For production logging
 ```
@@ -86,7 +90,7 @@ AXIOM_TOKEN=your_axiom_token  # Optional logging service
 
 ### Where to Get Environment Variables
 
-1. **VITE_API_HOST**: 
+1. **VITE_CLASH_PARADISE_API_HOST_URL**: 
    - Development: `http://localhost:4000`
    - Production: `https://clashparadise.io`
 
@@ -98,7 +102,18 @@ AXIOM_TOKEN=your_axiom_token  # Optional logging service
    - Get from [Playt Developer Console][https://clashparadise.io/devs]
    - Create new game and update API Key (or locally from .eng.games)
 
-3. **AXIOM_TOKEN** (Optional):
+3. **ENABLE_CORS** (Development Only):
+   - Set to `true` to enable CORS headers for local development
+   - Allows connections from `localhost:8000` and `127.0.0.1:8000`
+   - **Important**: Do not commit CORS code to production
+
+4. **VITE_USE_MOCK_CLIENT** (Development Only):
+   - Set to `true` to use the mock client instead of the Playt platform
+   - Useful for standalone testing without needing Playt infrastructure
+   - Mock client simulates WebSocket and API responses
+   - Automatically enabled if `playerToken` is missing from URL
+
+5. **AXIOM_TOKEN** (Optional):
    - Sign up at [Axiom.co](https://axiom.co)
    - Create dataset and get ingest token
    - Used for production logging and analytics

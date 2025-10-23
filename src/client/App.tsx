@@ -40,7 +40,6 @@ function App() {
 
 	return (
 		<div className="grid grid-rows-[100px_auto] grid-flow-row justify-items-center content-start pb-2">
-			Scene:{currentActiveScene}
 			<div
 				id="game-container"
 				ref={gameContainerRef}
