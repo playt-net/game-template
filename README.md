@@ -76,7 +76,7 @@ API_KEY=your_api_key_here           # Get from .env.games file in code Dashboard
 ENABLE_CORS=true                    # Enable CORS for local development
 VITE_USE_MOCK_CLIENT=true           # Use mock client instead of Playt (for standalone testing)
 
-# Optional: Logging (Production)
+# Optional: Production Logging & Error Tracking 
 AXIOM_TOKEN=your_axiom_token        # For production logging
 ```
 
@@ -85,7 +85,9 @@ AXIOM_TOKEN=your_axiom_token        # For production logging
 # Set these within coolify
 VITE_CLASH_PARADISE_API_HOST_URL=https://clashparadise.io
 API_KEY=your_production_api_game_api_key
-AXIOM_TOKEN=your_axiom_token  # Optional logging service
+
+# Logging & Monitoring (Required for Production)
+AXIOM_TOKEN=your_axiom_token
 ```
 
 ### Where to Get Environment Variables
@@ -113,10 +115,21 @@ AXIOM_TOKEN=your_axiom_token  # Optional logging service
    - Mock client simulates WebSocket and API responses
    - Automatically enabled if `playerToken` is missing from URL
 
-5. **AXIOM_TOKEN** (Optional):
+5. **AXIOM_TOKEN** (Production Recommended):
    - Sign up at [Axiom.co](https://axiom.co)
-   - Create dataset and get ingest token
+   - Create a dataset (e.g., `your-game-name-prod`)
+   - Create an API token with "Ingest" permission
+   - Update dataset name in `src/server/server.ts`
    - Used for production logging and analytics
+
+6. **SENTRY_DSN** (Production Recommended):
+   - Sign up at [Sentry.io](https://sentry.io)
+   - Create a new "Node" project for backend
+   - Copy the DSN from project settings
+   - Used for error tracking
+
+
+See the [Deployment section](#-deployment) for detailed setup instructions.
 
 ## 🎮 Game Development Guide
 
@@ -315,7 +328,86 @@ bun run check
 
 ## 🚀 Deployment
 
-### Local Deployment test
+### Production Logging Setup
+
+Before deploying to production, configure logging and error tracking services:
+
+#### 1. Axiom Setup (Application Logging)
+
+Axiom provides centralized logging for your production application.
+
+**Step 1: Access Axiom**
+1. Log into [Axiom.co](https://axiom.co) using GitHub dev account
+2. Select or switch to the appropriate organization/workspace
+
+**Step 2: Create Dataset**
+1. Click "Datasets" in the sidebar
+2. Click "Create Dataset"
+3. Name it (e.g., `game-template-prod` or `your-game-name-prod`)
+4. Click "Create"
+
+**Step 3: Get API Token**
+1. Go to "Settings" → "API Tokens"
+2. Click "Create Token"
+3. Select "Ingest" permission
+4. Copy the token (you won't see it again!)
+
+**Step 4: Configure in Code**
+Update the dataset name in `src/server/server.ts`:
+```typescript
+transport: process.env.AXIOM_TOKEN
+    ? {
+        target: '@axiomhq/pino',
+        options: {
+            dataset: 'your-game-name-prod', // Change this to your dataset name
+            token: process.env.AXIOM_TOKEN,
+        },
+    }
+    : { target: 'pino-pretty' },
+```
+
+**Step 5: Set Environment Variable**
+Add to your production environment (Coolify, Railway, etc.):
+```bash
+AXIOM_TOKEN=your_axiom_token_here
+```
+
+#### 2. Sentry Setup (Error Tracking)
+
+Sentry captures and tracks errors in both frontend and backend.
+
+**Step 1: Access Sentry**
+1. Log into [Sentry.io](https://sentry.io) using your existing account
+2. Select or switch to the appropriate organization
+
+**Step 2: Create Project**
+1. Click "Projects" → "Create Project"
+2. Select platform: **Node.js** (use default project settings)
+3. Name your project (e.g., `game-template` or `your-game-name`)
+4. Click "Create Project"
+
+**Step 3: Get DSN (Data Source Name)**
+1. After creating the project, you'll see the DSN in the setup page
+2. Or find it later in: Settings → Projects → [Your Project] → Client Keys (DSN)
+3. Copy the DSN - you'll need to set this in the prod dev console
+
+**Step 4: Set Environment Variables in dev Console**
+
+#### Complete Production Environment Variables
+
+```bash
+# Playt Platform
+VITE_CLASH_PARADISE_API_HOST_URL=https://clashparadise.io
+API_KEY=your_production_game_api_key
+
+# Logging & Monitoring
+AXIOM_TOKEN=your_axiom_ingest_token
+
+# Optional: Disable CORS in production
+ENABLE_CORS=false
+```
+
+### Local Deployment Test
 
 ```bash
 # Build the project

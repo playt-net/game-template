@@ -26,7 +26,7 @@ app
 				? {
 						target: '@axiomhq/pino',
 						options: {
-							dataset: 'wanted-emoji-prod',
+							dataset: 'wanted-emoji-prod', // TODO: Change this to your dataset name
 							token: process.env.AXIOM_TOKEN,
 						},
 					}
